@@ -2,8 +2,8 @@
 -- PostgreSQL database dump
 --
 
--- Dumped from database version 13.3
--- Dumped by pg_dump version 13.3
+-- Dumped from database version 13.4
+-- Dumped by pg_dump version 13.4
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -19,6 +19,109 @@ SET row_security = off;
 SET default_tablespace = '';
 
 SET default_table_access_method = heap;
+
+--
+-- Name: individuals; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.individuals (
+    individual_id integer NOT NULL,
+    nickname text,
+    species_id integer NOT NULL,
+    record_created timestamp without time zone
+);
+
+
+--
+-- Name: individuals_individual_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.individuals_individual_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: individuals_individual_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.individuals_individual_id_seq OWNED BY public.individuals.individual_id;
+
+
+--
+-- Name: sightings; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.sightings (
+    sighting_id integer NOT NULL,
+    date_time timestamp without time zone,
+    individual_id integer NOT NULL,
+    appeared_healthy boolean,
+    sighter_email text,
+    common_name text,
+    location text
+);
+
+
+--
+-- Name: sightings_sighting_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.sightings_sighting_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: sightings_sighting_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.sightings_sighting_id_seq OWNED BY public.sightings.sighting_id;
+
+
+--
+-- Name: species; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.species (
+    species_id integer NOT NULL,
+    common_name text,
+    scientific_name text,
+    number_in_wild integer,
+    record_created timestamp without time zone DEFAULT now(),
+    conservation_status text,
+    wikipedia_url text,
+    image_url text
+);
+
+
+--
+-- Name: species_species_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.species_species_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: species_species_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.species_species_id_seq OWNED BY public.species.species_id;
+
 
 --
 -- Name: tasks; Type: TABLE; Schema: public; Owner: -
@@ -51,10 +154,70 @@ ALTER SEQUENCE public.tasks_id_seq OWNED BY public.tasks.id;
 
 
 --
+-- Name: individuals individual_id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.individuals ALTER COLUMN individual_id SET DEFAULT nextval('public.individuals_individual_id_seq'::regclass);
+
+
+--
+-- Name: sightings sighting_id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.sightings ALTER COLUMN sighting_id SET DEFAULT nextval('public.sightings_sighting_id_seq'::regclass);
+
+
+--
+-- Name: species species_id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.species ALTER COLUMN species_id SET DEFAULT nextval('public.species_species_id_seq'::regclass);
+
+
+--
 -- Name: tasks id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.tasks ALTER COLUMN id SET DEFAULT nextval('public.tasks_id_seq'::regclass);
+
+
+--
+-- Data for Name: individuals; Type: TABLE DATA; Schema: public; Owner: -
+--
+
+COPY public.individuals (individual_id, nickname, species_id, record_created) FROM stdin;
+5	phDonkey Kong	5	2019-06-22 19:10:25
+1	stripes	4	2016-06-22 19:10:25
+2	bella	3	2018-06-22 19:10:25
+4	tigger	7	2021-06-22 19:10:25
+3	norbert	6	2020-06-22 19:10:25
+\.
+
+
+--
+-- Data for Name: sightings; Type: TABLE DATA; Schema: public; Owner: -
+--
+
+COPY public.sightings (sighting_id, date_time, individual_id, appeared_healthy, sighter_email, common_name, location) FROM stdin;
+4	2021-02-28 22:00:00	4	t	cinnamonGirl@gmail.com	blue whale	California
+3	2021-06-22 15:00:00	3	t	macDungaroos@gmail.com	soala	Indonesia
+5	2021-04-15 19:00:00	5	f	phDonkeyKong@gmail.com	tiger	Korea
+1	2021-07-31 05:00:00	1	t	annieC@gmail.com	orangutan	Borneo
+2	2021-09-12 05:00:00	2	f	docHolliday@gmail.com	indian elephant	India
+\.
+
+
+--
+-- Data for Name: species; Type: TABLE DATA; Schema: public; Owner: -
+--
+
+COPY public.species (species_id, common_name, scientific_name, number_in_wild, record_created, conservation_status, wikipedia_url, image_url) FROM stdin;
+3	indian elephant	elephas maximus indicus	20000	2021-09-14 19:40:38.094108	EN	https://en.wikipedia.org/wiki/Indian_elephant	https://upload.wikimedia.org/wikipedia/commons/a/ac/IndianElephant.jpg
+4	saola	Pseudoryx nghetinhensis	100	2021-09-14 19:43:26.44792	CR	https://en.wikipedia.org/wiki/Saola	https://upload.wikimedia.org/wikipedia/commons/7/73/Pseudoryx_nghetinhensis%2C_b.PNG
+5	orangutan	Pongo pygmaeus	8000	2021-09-14 19:49:09.338705	CR	https://en.wikipedia.org/wiki/Oranguta	https://upload.wikimedia.org/wikipedia/commons/b/be/Orang_Utan%2C_Semenggok_Forest_Reserve%2C_Sarawak%2C_Borneo%2C_Malaysia.JPG
+6	blue whale	balaenoptera musculus	25000	2021-09-14 19:53:37.841217	CR	https://en.wikipedia.org/wiki/Blue_whale	https://upload.wikimedia.org/wikipedia/commons/1/1c/Anim1754_-_Flickr_-_NOAA_Photo_Library.jpg
+7	tiger	Panthera tigris	84	2021-09-14 20:02:03.587183	CR	https://en.wikipedia.org/wiki/Tiger	https://upload.wikimedia.org/wikipedia/commons/3/3f/Walking_tiger_female.jpg
+\.
 
 
 --
@@ -71,10 +234,55 @@ COPY public.tasks (id, name) FROM stdin;
 
 
 --
+-- Name: individuals_individual_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
+--
+
+SELECT pg_catalog.setval('public.individuals_individual_id_seq', 5, true);
+
+
+--
+-- Name: sightings_sighting_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
+--
+
+SELECT pg_catalog.setval('public.sightings_sighting_id_seq', 5, true);
+
+
+--
+-- Name: species_species_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
+--
+
+SELECT pg_catalog.setval('public.species_species_id_seq', 7, true);
+
+
+--
 -- Name: tasks_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
 SELECT pg_catalog.setval('public.tasks_id_seq', 5, true);
+
+
+--
+-- Name: individuals individuals_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.individuals
+    ADD CONSTRAINT individuals_pkey PRIMARY KEY (individual_id);
+
+
+--
+-- Name: sightings sightings_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.sightings
+    ADD CONSTRAINT sightings_pkey PRIMARY KEY (sighting_id);
+
+
+--
+-- Name: species species_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.species
+    ADD CONSTRAINT species_pkey PRIMARY KEY (species_id);
 
 
 --
@@ -83,6 +291,22 @@ SELECT pg_catalog.setval('public.tasks_id_seq', 5, true);
 
 ALTER TABLE ONLY public.tasks
     ADD CONSTRAINT tasks_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: sightings fk_sighting; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.sightings
+    ADD CONSTRAINT fk_sighting FOREIGN KEY (individual_id) REFERENCES public.individuals(individual_id);
+
+
+--
+-- Name: individuals fk_species; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.individuals
+    ADD CONSTRAINT fk_species FOREIGN KEY (species_id) REFERENCES public.species(species_id);
 
 
 --

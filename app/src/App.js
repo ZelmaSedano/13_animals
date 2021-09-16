@@ -19,20 +19,25 @@ const App = () => {
 };
 
 const Home = () => {
-  const [tasks, setTasks] = React.useState([]);
+  const [sightings, setSightings] = React.useState([]);
 
-  const loadTasks = async () => setTasks(await apiClient.getTasks());
+  const loadSightings = async () => {
+    const result = await apiClient.getSightings();
+    setSightings(result);
+    console.log(result);
+  };
+  // change to getSpecies
 
   React.useEffect(() => {
-    loadTasks();
+    loadSightings();
   }, []);
 
   return (
     <>
       <h1>{process.env.REACT_APP_TITLE}</h1>
       <h2>{process.env.REACT_APP_SUBTITLE}</h2>
-      <TaskList tasks={tasks} />
-      <AddTask loadTasks={loadTasks} />
+      <SightingsList sightings={sightings} />
+      {/* <AddTask loadSightings={loadSightings} /> */}
     </>
   );
 };
@@ -43,37 +48,51 @@ const Dashboard = () => (
   </>
 );
 
-const TaskList = ({ tasks }) => (
+// Component
+const SightingsList = ({ sightings }) => (
   <ul>
-    {tasks.map(({ id, name }) => (
-      <li key={id}>{name}</li>
-    ))}
+    {sightings.map(
+      ({
+        sighting_id,
+        date_time,
+        individual_id,
+        appeared_healthy,
+        sighter_email,
+        common_name,
+        location,
+      }) => (
+        <li key={sighting_id}>
+          {sighting_id}, {date_time}, {individual_id},{" "}
+          {String(appeared_healthy)}, {sighter_email}, {common_name}, {location}
+        </li>
+      ),
+    )}
   </ul>
 );
 
-const AddTask = ({ loadTasks }) => {
-  const [task, setTask] = React.useState("");
+// const AddTask = ({ loadSightings }) => {
+//   const [task, setTask] = React.useState("");
 
-  const canAdd = task !== "";
+//   const canAdd = task !== "";
 
-  const onSubmit = async (e) => {
-    e.preventDefault();
-    if (canAdd) {
-      await apiClient.addTask(task);
-      loadTasks();
-      setTask("");
-    }
-  };
+//   const onSubmit = async (e) => {
+//     e.preventDefault();
+//     if (canAdd) {
+//       await apiClient.addTask(task);
+//       loadSightings();
+//       setTask("");
+//     }
+//   };
 
-  return (
-    <form onSubmit={onSubmit}>
-      <label>
-        New task:{" "}
-        <input onChange={(e) => setTask(e.currentTarget.value)} value={task} />
-      </label>
-      <button disabled={!canAdd}>Add</button>
-    </form>
-  );
-};
+//   return (
+//     <form onSubmit={onSubmit}>
+//       <label>
+//         New task:{" "}
+//         <input onChange={(e) => setTask(e.currentTarget.value)} value={task} />
+//       </label>
+//       <button disabled={!canAdd}>Add</button>
+//     </form>
+//   );
+// };
 
 export default App;
