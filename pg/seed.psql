@@ -62,8 +62,7 @@ CREATE TABLE public.sightings (
     individual_id integer NOT NULL,
     appeared_healthy boolean,
     sighter_email text,
-    common_name text,
-    location text
+    common_name text
 );
 
 
@@ -97,9 +96,7 @@ CREATE TABLE public.species (
     scientific_name text,
     number_in_wild integer,
     record_created timestamp without time zone DEFAULT now(),
-    conservation_status text,
-    wikipedia_url text,
-    image_url text
+    conservation_status text
 );
 
 
@@ -186,11 +183,9 @@ ALTER TABLE ONLY public.tasks ALTER COLUMN id SET DEFAULT nextval('public.tasks_
 --
 
 COPY public.individuals (individual_id, nickname, species_id, record_created) FROM stdin;
+1	crazy annie	4	2016-06-22 19:10:25
+2	doc holliday	3	2018-06-22 19:10:25
 5	phDonkey Kong	5	2019-06-22 19:10:25
-1	stripes	4	2016-06-22 19:10:25
-2	bella	3	2018-06-22 19:10:25
-4	tigger	7	2021-06-22 19:10:25
-3	norbert	6	2020-06-22 19:10:25
 \.
 
 
@@ -198,12 +193,10 @@ COPY public.individuals (individual_id, nickname, species_id, record_created) FR
 -- Data for Name: sightings; Type: TABLE DATA; Schema: public; Owner: -
 --
 
-COPY public.sightings (sighting_id, date_time, individual_id, appeared_healthy, sighter_email, common_name, location) FROM stdin;
-4	2021-02-28 22:00:00	4	t	cinnamonGirl@gmail.com	blue whale	California
-3	2021-06-22 15:00:00	3	t	macDungaroos@gmail.com	soala	Indonesia
-5	2021-04-15 19:00:00	5	f	phDonkeyKong@gmail.com	tiger	Korea
-1	2021-07-31 05:00:00	1	t	annieC@gmail.com	orangutan	Borneo
-2	2021-09-12 05:00:00	2	f	docHolliday@gmail.com	indian elephant	India
+COPY public.sightings (sighting_id, date_time, individual_id, appeared_healthy, sighter_email, common_name) FROM stdin;
+1	2021-07-31 05:00:00	1	t	annieC@gmail.com	orangutan
+2	2021-09-12 05:00:00	2	f	docHolliday@gmail.com	indian elephant
+5	2021-04-15 19:00:00	5	f	phDonkeyKong@gmail.com	tiger
 \.
 
 
@@ -211,12 +204,12 @@ COPY public.sightings (sighting_id, date_time, individual_id, appeared_healthy, 
 -- Data for Name: species; Type: TABLE DATA; Schema: public; Owner: -
 --
 
-COPY public.species (species_id, common_name, scientific_name, number_in_wild, record_created, conservation_status, wikipedia_url, image_url) FROM stdin;
-3	indian elephant	elephas maximus indicus	20000	2021-09-14 19:40:38.094108	EN	https://en.wikipedia.org/wiki/Indian_elephant	https://upload.wikimedia.org/wikipedia/commons/a/ac/IndianElephant.jpg
-4	saola	Pseudoryx nghetinhensis	100	2021-09-14 19:43:26.44792	CR	https://en.wikipedia.org/wiki/Saola	https://upload.wikimedia.org/wikipedia/commons/7/73/Pseudoryx_nghetinhensis%2C_b.PNG
-5	orangutan	Pongo pygmaeus	8000	2021-09-14 19:49:09.338705	CR	https://en.wikipedia.org/wiki/Oranguta	https://upload.wikimedia.org/wikipedia/commons/b/be/Orang_Utan%2C_Semenggok_Forest_Reserve%2C_Sarawak%2C_Borneo%2C_Malaysia.JPG
-6	blue whale	balaenoptera musculus	25000	2021-09-14 19:53:37.841217	CR	https://en.wikipedia.org/wiki/Blue_whale	https://upload.wikimedia.org/wikipedia/commons/1/1c/Anim1754_-_Flickr_-_NOAA_Photo_Library.jpg
-7	tiger	Panthera tigris	84	2021-09-14 20:02:03.587183	CR	https://en.wikipedia.org/wiki/Tiger	https://upload.wikimedia.org/wikipedia/commons/3/3f/Walking_tiger_female.jpg
+COPY public.species (species_id, common_name, scientific_name, number_in_wild, record_created, conservation_status) FROM stdin;
+1	indian elephant	elephas maximus indicus	20000	2021-09-19 22:14:38.253014	EN
+2	saola	Pseudoryx nghetinhensis	100	2021-09-19 22:14:46.800296	CR
+3	orangutan	Pongo pygmaeus	8000	2021-09-19 22:15:06.873272	CR
+4	blue whale	balaenoptera musculus	25000	2021-09-19 22:15:18.55683	CR
+5	tiger	Panthera tigris	84	2021-09-19 22:15:29.645075	CR
 \.
 
 
@@ -232,7 +225,7 @@ COPY public.tasks (id, name) FROM stdin;
 -- Name: individuals_individual_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public.individuals_individual_id_seq', 6, true);
+SELECT pg_catalog.setval('public.individuals_individual_id_seq', 5, true);
 
 
 --
@@ -246,7 +239,7 @@ SELECT pg_catalog.setval('public.sightings_sighting_id_seq', 5, true);
 -- Name: species_species_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public.species_species_id_seq', 7, true);
+SELECT pg_catalog.setval('public.species_species_id_seq', 5, true);
 
 
 --
