@@ -206,6 +206,11 @@ COPY public.sightings (sighting_id, date_time, individual_id, appeared_healthy, 
 2	2021-09-12 05:00:00	2	f	docHolliday@gmail.com	indian elephant	India
 \.
 
+-- species table 
+CREATE TABLE 
+
+
+
 
 --
 -- Data for Name: species; Type: TABLE DATA; Schema: public; Owner: -

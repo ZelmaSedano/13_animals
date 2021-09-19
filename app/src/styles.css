@@ -1,0 +1,136 @@
+* {
+  margin: 0;
+}
+
+body {
+  background: url("./jungle.png") no-repeat center center fixed;
+  background-size: cover;
+  filter: grayscale(2);
+  font-family: "Roboto", sans-serif;
+}
+
+header {
+  background-color: rgb(255, 255, 255, 0.3);
+}
+
+h1 {
+  padding: 20px;
+  text-align: center;
+  font-family: "Roboto Slab", serif;
+  color: white;
+  font-size: 50px;
+  font-weight: 300;
+}
+
+h3 {
+  color: white;
+  font-weight: 400;
+  font-size: 25px;
+  text-shadow: 2px 2px 6px black;
+  opacity: 0.85;
+}
+
+/* form */
+.input-wrapper {
+  margin: 30px auto;
+}
+/* splits for into 2 */
+.left-inputs {
+  float: left;
+}
+.right-inputs {
+  float: right;
+}
+/* removes floats so it can stack vertically in mobile view */
+
+form {
+  margin: 0 auto;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  margin-top: -20px;
+  max-width: 470px;
+}
+/* keep for spacing*/
+label {
+  font-size: 20px;
+  font-weight: 300;
+  color: white;
+  display: block;
+  margin-top: 10px;
+}
+/* input fields */
+input {
+  margin-left: 10px;
+  width: 200px;
+  padding: 7px;
+  border-radius: 5px;
+  border: none;
+}
+::placeholder,
+::-webkit-input-placeholder {
+  font-size: 18px;
+  font-weight: 100;
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+}
+input:focus {
+  outline: none;
+}
+
+button {
+  cursor: pointer;
+  font-size: 15px;
+  margin-top: 10px;
+  margin-left: 11px;
+  padding: 5px 20px;
+  border-radius: 7px;
+  border: none;
+  color: green;
+}
+button:hover {
+  opacity: 0.8;
+}
+
+.sightings-text {
+  background-color: rgb(255, 255, 255, 0.3);
+  border-radius: 10px;
+  max-width: 85%;
+  /* centers content */
+  margin: 40px auto;
+  margin-top: 200px;
+}
+
+li {
+  color: white;
+  font-weight: 300;
+  font-size: 20px;
+  padding: 10px;
+  line-height: 23px;
+  text-shadow: 2px 2px 6px black;
+}
+
+span {
+  color: pink;
+  font-weight: 500;
+}
+
+@media only screen and (max-width: 500px) {
+  h1 {
+    padding-top: 30px;
+    font-size: 40px;
+  }
+
+  h3 {
+    font-size: 20px;
+  }
+
+  .left-inputs {
+    float: none;
+  }
+  .right-inputs {
+    float: none;
+  }
+  .sightings-text {
+    margin-top: 50px;
+  }
+}

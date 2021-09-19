@@ -6,12 +6,27 @@ const db = initDb();
 // 1) change to getSightings
 export const getSightings = async () => await db.any("SELECT * FROM sightings");
 
-// export const addTask = async (name) =>
-//   (
-//     await db.any("INSERT INTO tasks(name) VALUES($1) RETURNING id, name", [
-//       name,
-//     ])
-//   )[0];
+// Adding Sightings
+// adds the sightings to the DB
+export const addSighting = async ({
+  date_time,
+  individual_id,
+  appeared_healthy,
+  sighter_email,
+  common_name,
+  location,
+}) =>
+  await db.any(
+    "INSERT INTO sightings(date_time, individual_id, appeared_healthy, sighter_email, common_name, location) VALUES($1, $2, $3, $4, $5, $6)",
+    [
+      date_time,
+      individual_id,
+      appeared_healthy,
+      sighter_email,
+      common_name,
+      location,
+    ],
+  );
 
 function initDb() {
   let connection;
