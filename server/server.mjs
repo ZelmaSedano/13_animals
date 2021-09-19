@@ -25,9 +25,9 @@ sightings.post("/", async (req, res) => {
 
 app.use("/api/sightings", sightings);
 
-// app.get("/api/ping", (request, response) =>
-//   response.json({ response: "pong" }),
-// );
+app.get("/api/ping", (request, response) =>
+  response.json({ response: "pong" }),
+);
 
 if (process.env?.SERVE_REACT?.toLowerCase() === "true") {
   app.use(

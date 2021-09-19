@@ -206,11 +206,6 @@ COPY public.sightings (sighting_id, date_time, individual_id, appeared_healthy, 
 2	2021-09-12 05:00:00	2	f	docHolliday@gmail.com	indian elephant	India
 \.
 
--- species table 
-CREATE TABLE 
-
-
-
 
 --
 -- Data for Name: species; Type: TABLE DATA; Schema: public; Owner: -
@@ -230,11 +225,6 @@ COPY public.species (species_id, common_name, scientific_name, number_in_wild, r
 --
 
 COPY public.tasks (id, name) FROM stdin;
-1	🙏 Be nice when you add test entries
-2	⏲ Added entries will be reset every Sunday
-3	End white supremacy
-4	Advocate for living wage
-5	Provide universal health care
 \.
 
 
@@ -242,7 +232,7 @@ COPY public.tasks (id, name) FROM stdin;
 -- Name: individuals_individual_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public.individuals_individual_id_seq', 5, true);
+SELECT pg_catalog.setval('public.individuals_individual_id_seq', 6, true);
 
 
 --
