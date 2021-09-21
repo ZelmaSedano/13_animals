@@ -1,5 +1,5 @@
 import * as React from "react";
-
+// test comment
 import { Routes, Route } from "react-router-dom";
 
 import * as apiClient from "./apiClient";
@@ -105,8 +105,8 @@ const AddSightingForm = ({ addSighting }) => {
     event.preventDefault();
     // sets an element called 'form' as the event's target
     const form = event.currentTarget;
-    // adding a date to the sighting - which is now - doesn't show time right now
-    const date_time = new Date().toISOString(); // might have to convert it
+    // adding a date to the sighting - which is now
+    const date_time = new Date().toISOString();
     // getting what's entered into form out of the form
     const {
       individual_id: { value: individual_id },

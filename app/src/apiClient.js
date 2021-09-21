@@ -9,6 +9,7 @@ export const getSightings = async () => {
 export const addSighting = (sighting) => _post("/api/sightings", sighting);
 
 // post method wrapper that is going to make it easier to make post methods from different components
+// what is the url?
 const _post = async (url, body) => {
   const response = await fetch(url, {
     method: "POST",

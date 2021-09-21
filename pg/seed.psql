@@ -62,7 +62,8 @@ CREATE TABLE public.sightings (
     individual_id integer NOT NULL,
     appeared_healthy boolean,
     sighter_email text,
-    common_name text
+    common_name text,
+    location text
 );
 
 
@@ -193,10 +194,10 @@ COPY public.individuals (individual_id, nickname, species_id, record_created) FR
 -- Data for Name: sightings; Type: TABLE DATA; Schema: public; Owner: -
 --
 
-COPY public.sightings (sighting_id, date_time, individual_id, appeared_healthy, sighter_email, common_name) FROM stdin;
-1	2021-07-31 05:00:00	1	t	annieC@gmail.com	orangutan
-2	2021-09-12 05:00:00	2	f	docHolliday@gmail.com	indian elephant
-5	2021-04-15 19:00:00	5	f	phDonkeyKong@gmail.com	tiger
+COPY public.sightings (sighting_id, date_time, individual_id, appeared_healthy, sighter_email, common_name, location) FROM stdin;
+1	2021-07-31 05:00:00	1	t	annieC@gmail.com	orangutan	indonesia
+2	2021-09-12 05:00:00	2	f	docHolliday@gmail.com	indian elephant	india
+5	2021-04-15 19:00:00	5	f	phDonkeyKong@gmail.com	tiger	korea
 \.
 
 
@@ -225,7 +226,7 @@ COPY public.tasks (id, name) FROM stdin;
 -- Name: individuals_individual_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public.individuals_individual_id_seq', 5, true);
+SELECT pg_catalog.setval('public.individuals_individual_id_seq', 6, true);
 
 
 --
