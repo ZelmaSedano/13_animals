@@ -31,8 +31,8 @@ const Home = () => {
 
   const loadSightings = async () => {
     const result = await apiClient.getSightings();
-    setSightings(result);
     console.log(result); // test to see if sightings are working
+    setSightings(result);
   };
 
   // 2) Connection to API Client - function that takes the sighting
